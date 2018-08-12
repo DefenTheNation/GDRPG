@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Images/Map/rsz_water.jpg" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/Map/rsz_grass.jpg" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Map/rsz_mtn.jpg" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Map/rsz_1town.jpg" type="Texture" id=4]
+
+[node name="Node2D" type="Node2D" index="0"]
+
+[node name="Water" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+centered = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="Grass" type="Sprite" parent="." index="1"]
+
+position = Vector2( 50, 0 )
+texture = ExtResource( 2 )
+centered = false
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Mountain" type="Sprite" parent="." index="2"]
+
+position = Vector2( 100, 0 )
+texture = ExtResource( 3 )
+centered = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="Town" type="Sprite" parent="." index="3"]
+
+position = Vector2( 0, 50 )
+texture = ExtResource( 4 )
+centered = false
+_sections_unfolded = [ "Offset", "Transform" ]
+
+
