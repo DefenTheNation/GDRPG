@@ -9,20 +9,27 @@ var step = 50
 var player_position
 
 const INVALID = -1
+const WATER = 0
 const GRASS = 1
 const MOUNTAIN = 2
 const TOWN = 3
-const WATER = 4
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	$PlayerSprite.play()
 	
-	player_position = Vector2(GridWidth / 2, GridHeight / 2)
+	player_position = Vector2(2, 1)
 	
 	var init_position = $TileMap.map_to_world(player_position)
 	$PlayerSprite.position = init_position
+	
+	centerWorldOn(player_position)
+
+func center_world_on(map_vector):
+	var screen_size = get_viewport_rect().size
+	var screen_position = $TileMap.map_to_world(map_vector)
+	
 
 func _process(delta):
 #	# Called every frame. Delta is time since last frame.
@@ -63,16 +70,19 @@ func _process(delta):
 
 func can_move(x,y):
 	var cell = $TileMap.get_cell(x,y)
-	print(str(cell))
+	
 	match cell:
-		-1:
+		INVALID:
 			print("INVALID CELL - NO MOVEMENT ALLOWED")
-			return false
-		MOUNTAIN:
-			print("MOUNTAIN IN WAY")
 			return false
 		WATER:
 			print("WATER IN WAY")
 			return false
-		_:
+		MOUNTAIN:
+			print("MOUNTAIN IN WAY")
+			return false
+		GRASS, TOWN:
 			return true
+		_:
+			print("Unknown id: " + str(cell))
+			return false

@@ -24,7 +24,6 @@ animations = [ {
 
 frames = SubResource( 1 )
 animation = "down"
-frame = 1
 centered = false
 script = ExtResource( 5 )
 

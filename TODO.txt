@@ -1,0 +1,3 @@
+2018-08-13
++ Define grid size for window, determine scalable map (?)
++ Determine start location for player and have map view center on player
