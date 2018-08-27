@@ -1,12 +1,10 @@
 extends Node2D
 
-export (int) var GridWidth
-export (int) var GridHeight
-export (int) var BlockWidth
-export (int) var BlockHeight
-
 var step = 50
 var player_position
+
+const player_x_offset = 0
+const player_y_offset = -25
 
 const INVALID = -1
 const WATER = 0
@@ -15,20 +13,33 @@ const MOUNTAIN = 2
 const TOWN = 3
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+	player_position = Vector2(0, 0)
+	
+	center_player()
+	center_world_on(player_position)
+	
 	$PlayerSprite.play()
 	
-	player_position = Vector2(2, 1)
+	$DialogueBox.displayMessage("Welcome to Draconia! You are the next in line for succession. Do you have what it takes to become king?")
+
+func center_player():
+	var screen_size = get_viewport_rect().size
 	
-	var init_position = $TileMap.map_to_world(player_position)
-	$PlayerSprite.position = init_position
-	
-	centerWorldOn(player_position)
+	$PlayerSprite.position.x = screen_size.x / 2 + player_x_offset
+	$PlayerSprite.position.y = screen_size.y / 2 + player_y_offset
 
 func center_world_on(map_vector):
 	var screen_size = get_viewport_rect().size
 	var screen_position = $TileMap.map_to_world(map_vector)
+	
+	var map_width = floor(screen_size.x / step)
+	var map_height = floor(screen_size.y / step)
+	
+	var shift_width = floor(map_width / 2) - map_vector.x
+	var shift_height = floor(map_height / 2) - map_vector.y
+	
+	$TileMap.move_local_x(shift_width * step)
+	$TileMap.move_local_y(shift_height * step)
 	
 
 func _process(delta):
